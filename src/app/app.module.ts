@@ -11,6 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 
+
 import { RouterModule } from '@angular/router';
 
 import { BNavbarComponent } from './b-navbar/b-navbar.component';
@@ -23,6 +24,8 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component'
 import { LoginComponent } from './login/login.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { LoginComponent } from './login/login.component';
       {path: 'login', component: LoginComponent}, 
       {path: 'admin/product', component: AdminProductsComponent}, 
       {path: 'admin/orders', component: AdminOrdersComponent}, 
-    ])
+    ]),
+
+     //ng-bootstrap directives
+     NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

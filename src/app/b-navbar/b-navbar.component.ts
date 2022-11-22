@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-b-navbar',
@@ -8,10 +9,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class BNavbarComponent implements OnInit {
 
-  user : any;
+  user$ : Observable<any> | undefined;
 
   constructor(private afAuth: AngularFireAuth) {
-    afAuth.authState.subscribe(user => this.user = user);
+    this.user$ = afAuth.authState ;
    }
 
   ngOnInit(): void {

@@ -26,6 +26,7 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuardService } from './auth-guard.service';
+import { AdminAuthGuardService } from './admin-auth-guard.service';
 
 
 @NgModule({
@@ -62,8 +63,9 @@ import { AuthGuardService } from './auth-guard.service';
       {path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuardService]}, 
       {path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuardService]},
       {path: 'my/orders' , component: MyOrdersComponent, canActivate: [AuthGuardService]}, 
-      {path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuardService]}, 
-      {path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuardService]}, 
+      
+      {path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuardService,AdminAuthGuardService]}, 
+      {path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuardService,AdminAuthGuardService]}, 
     ]),
 
      //ng-bootstrap directives

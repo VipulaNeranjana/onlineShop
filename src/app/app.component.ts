@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,13 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   title = 'onlineShop';
 
-  constructor(private auth : AuthService, router : Router) {
+  constructor(private userService : UserService ,private auth : AuthService, router : Router) {
     auth.user$?.subscribe(user => {
       if(user) {
-      let returnUrl = localStorage.getItem('returnUrl');
-      router.navigateByUrl(returnUrl as string);
+        userService.save(user);
+        
+        let returnUrl = localStorage.getItem('returnUrl');
+        router.navigateByUrl(returnUrl as string);
       }
     });     //if it is wanted to unsubscrib, it can be done by ondistroy interface
   }

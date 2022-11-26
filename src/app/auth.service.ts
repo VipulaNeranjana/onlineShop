@@ -3,7 +3,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   isLoggedin :  boolean | undefined;
   user$ : Observable<any> | undefined;
 
-  constructor(private afAuth : AngularFireAuth, private route : ActivatedRoute) { 
+  constructor(private userService: UserService, private afAuth : AngularFireAuth, private route : ActivatedRoute) { 
     this.user$ = afAuth.authState ;
   }
 
@@ -33,4 +34,9 @@ export class AuthService {
     console.log(getAuth());
     return this.isLoggedin;
   }
+
+  get appUser$(){
+    return this.user$?.pipe(switchMap( user => this.userService.get(user!.uid).valueChanges())); 
+  }
+  
 }

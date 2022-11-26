@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { map, switchMap } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { AppUser } from '../models/app-user';
 
 @Component({
   selector: 'app-b-navbar',
@@ -7,11 +9,13 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./b-navbar.component.css']
 })
 export class BNavbarComponent implements OnInit {
+  appUser : any;
 
-  constructor(public auth: AuthService) {}
-
-  ngOnInit(): void {
+  constructor(public auth: AuthService) {
+    auth.appUser$?.subscribe(appUser => this.appUser = appUser);
   }
+
+  ngOnInit(): void { }
 
   logout() {
     this.auth.logout();

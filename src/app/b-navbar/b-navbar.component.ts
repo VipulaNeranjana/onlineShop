@@ -11,7 +11,7 @@ import { AppUser } from '../models/app-user';
 export class BNavbarComponent implements OnInit {
   appUser : any;
 
-  constructor(public auth: AuthService) {
+  constructor(private auth: AuthService) {
     auth.appUser$?.subscribe(appUser => this.appUser = appUser);
   }
 

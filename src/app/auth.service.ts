@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { map, Observable, switchMap } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -36,7 +36,11 @@ export class AuthService {
   }
 
   get appUser$(){
-    return this.user$?.pipe(switchMap( user => this.userService.get(user!.uid).valueChanges())); 
+    return this.user$?.pipe(switchMap( user => {
+      if (user) return this.userService.get(user!.uid).valueChanges();
+
+      return of(null);
+    })); 
   }
   
 }

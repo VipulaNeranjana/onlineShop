@@ -28,6 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuardService } from './auth-guard.service';
 import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -54,6 +55,9 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     AngularFireDatabaseModule,  
     AngularFirestoreModule,
     AngularFireStorageModule,
+
+    //form controlling
+    FormsModule,
 
     //routing
     RouterModule.forRoot([

@@ -13,6 +13,7 @@ export class ProductFormComponent implements OnInit {
 
   categories$: any;
   product : any = {};
+  id : any;
 
   constructor(
     private router: Router,
@@ -21,15 +22,18 @@ export class ProductFormComponent implements OnInit {
     private productService : ProductService) {
     this.categories$ = categoryService.getCategories().valueChanges();
     
-    let id = route.snapshot.paramMap.get('id');
-    if (id) productService.get(id).valueChanges().pipe(take(1)).subscribe(p => this.product = p);
+    this.id = route.snapshot.paramMap.get('id');
+    if (this.id) productService.get(this.id).valueChanges().pipe(take(1)).subscribe(p => this.product = p);
     console.log(this.categories$, this.product);
   }
 
   save(product: any){
-     this.productService.create(product);
-     this.router.navigate(['/admin/products']);
-     console.log(product);
+    if (this.id) this.productService.update(this.id, product);
+
+    else this.productService.create(product);
+
+    this.router.navigate(['/admin/products']);
+    console.log(product);
   }
 
   ngOnInit(): void {

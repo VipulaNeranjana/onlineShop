@@ -30,6 +30,13 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -63,6 +70,13 @@ import { CustomFormsModule } from 'ng2-validation';
     //form controlling
     FormsModule,
 
+    //angular material pagination
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+
     //routing
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
@@ -82,6 +96,8 @@ import { CustomFormsModule } from 'ng2-validation';
 
      //ng-bootstrap directives
      NgbModule,
+
+     BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

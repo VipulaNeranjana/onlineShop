@@ -15,5 +15,5 @@ export class AdminAuthGuardService implements CanActivate {
     
     return (this.auth.user$?.pipe(switchMap(data => this.userService.get(data.uid).valueChanges().pipe(map(user => user?.isAdmin))))) as unknown as boolean;
 
-  }
+  } // protecting admin routing
 }

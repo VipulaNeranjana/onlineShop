@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs';
-import { CategoryService } from '../category.service';
 import { Product } from '../models/product';
 import { ProductService } from '../product.service';
 
@@ -14,13 +13,11 @@ export class ProductsComponent implements OnInit {
 
   products : Product[] | undefined;
   filteredProducts : Product[] | undefined;
-  categories$ : any;
   category : any;
 
   constructor(
     rout : ActivatedRoute, //to read rout parameters
-    productService : ProductService, 
-    categoryService : CategoryService) {
+    productService : ProductService) {
 
     productService.getAll().snapshotChanges().pipe(map(change => 
       change.map(c => {
@@ -40,7 +37,7 @@ export class ProductsComponent implements OnInit {
     
     });
 
-    this.categories$ = categoryService.getCategories().snapshotChanges();
+    
    
     
   }

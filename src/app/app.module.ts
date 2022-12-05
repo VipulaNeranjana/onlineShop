@@ -38,6 +38,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
     AdminOrdersComponent,
     ProductFormComponent,
     ProductFilterComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,

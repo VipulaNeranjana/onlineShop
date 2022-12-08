@@ -11,11 +11,19 @@ export class ProductCardComponent implements OnInit {
 
   @Input('product') product : Product | any;
   @Input('show-actions') showActions = true;
+  @Input('shopping-cart') shoppingCart: any;
 
   constructor(private cartService : ShoppingCartService) { }
 
   addToCart(product : Product | any){
     this.cartService.addToCart(product);
+  }
+
+  getQuantity(){
+    if (!this.shoppingCart) return 0;
+
+    let item = this.shoppingCart.items[this.product.title];
+    return item ? item.quantity : 0;
   }
 
   ngOnInit(): void {

@@ -14,6 +14,7 @@ export class CartComponent implements OnInit {
   cart : any;
   cart$ : any;
   shoppingCartItems : any[] | undefined;
+  price : number | undefined;
 
   constructor(private shoppingCartService : ShoppingCartService) { }
 
@@ -23,6 +24,14 @@ export class CartComponent implements OnInit {
     this.cart$.valueChanges().subscribe((values: any) => {
       this.cart = values;
       console.log(this.cart);
+
+      this.price =0;
+      for (let productTitle of Object.keys(values!.items)){
+    
+        const quantity = parseFloat(values!.items[productTitle as keyof typeof values].quantity);
+        const priceForOne = parseFloat(values!.items[productTitle as keyof typeof values].product.price);
+        this.price! += quantity *priceForOne;
+      }
     })
     // (await this.shoppingCartService.getCart()).valueChanges().pipe(map(values => 
     //   values?.items.map(c => {

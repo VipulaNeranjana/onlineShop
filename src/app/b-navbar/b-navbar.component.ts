@@ -23,7 +23,7 @@ export class BNavbarComponent implements OnInit {
     cart$.valueChanges().subscribe(cart => {
     this.shoppingCartItemCount = 0;
     for (let productTitle of Object.keys(cart!.items)){
-      console.log(productTitle)
+      // console.log(productTitle, cart?.items);
       this.shoppingCartItemCount += cart!.items[productTitle as keyof typeof cart].quantity;
       //console.log(cart!.items[productTitle as keyof typeof cart].quantity)
     }

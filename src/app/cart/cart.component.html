@@ -1,1 +1,20 @@
-<p>cart works!</p>
+<h1>Shopping Cart</h1>
+
+<ng-container *ngIf="cart">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cart of cart.items | keyvalue">
+                    <td>{{cart.key }}</td>
+                    <td>{{$any(cart.value).quantity}}</td>
+                    <td>{{$any(cart.value).product.price}}</td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>

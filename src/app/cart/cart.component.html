@@ -4,9 +4,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
+                <th class="text-left">Product</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-right">Price</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                         </div>
                     </td>
                     <!-- <td>{{$any(cart.value).quantity}}</td> -->
-                    <td>{{$any(cart.value).product.price * $any(cart.value).quantity | currency: 'USD':true }}</td>
+                    <td class="text-right">{{$any(cart.value).product.price * $any(cart.value).quantity | currency: 'USD':true }}</td>
                 </ng-container>
             </tr>
         </tbody>

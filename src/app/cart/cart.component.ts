@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { values } from 'lodash';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Product } from '../models/product';
 import { ShoppingCartService } from '../shopping-cart.service';
 
@@ -9,19 +9,20 @@ import { ShoppingCartService } from '../shopping-cart.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 
   cart : any;
   cart$ : any;
   shoppingCartItems : any[] | undefined;
   price : number | undefined;
+  subscription : Subscription | undefined;
 
   constructor(private shoppingCartService : ShoppingCartService) { }
 
   async ngOnInit(){
 
     this.cart$ = await this.shoppingCartService.getCart();
-    this.cart$.valueChanges().subscribe((values: any) => {
+    this.subscription = this.cart$.valueChanges().subscribe((values: any) => {
       this.cart = values;
       console.log(this.cart);
 
@@ -47,4 +48,15 @@ export class CartComponent implements OnInit {
     
   }
 
+  addToCart(product: any){
+    this.shoppingCartService.addToCart(product);
+  }
+
+  removeFromCart(product: any){
+    this.shoppingCartService.removeFromCart(product);
+  }
+
+  ngOnDestroy(){
+    this.subscription?.unsubscribe();
+  }
 }

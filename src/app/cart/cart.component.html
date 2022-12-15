@@ -13,7 +13,20 @@
             <tr *ngFor="let cart of cart.items | keyvalue">
                 <ng-container *ngIf="$any(cart.value).quantity != 0">
                     <td>{{cart.key }}</td>
-                    <td>{{$any(cart.value).quantity}}</td>
+                    <td>
+                        <div class="row no-gutters">
+                            <div class="col-2">
+                              <button (click)="removeFromCart($any(cart.value).product)" class="btn btn-primary btn-block" style="background-color: rgb(253, 8, 167);">-</button>
+                            </div>
+                            <div class="col text-center">
+                              {{$any(cart.value).quantity}} in cart
+                            </div>
+                            <div class="col-2">
+                              <button (click)="addToCart($any(cart.value).product)" class="btn btn-primary btn-block" style="background-color: rgb(253, 8, 167);">+</button>
+                            </div>
+                        </div>
+                    </td>
+                    <!-- <td>{{$any(cart.value).quantity}}</td> -->
                     <td>{{$any(cart.value).product.price * $any(cart.value).quantity | currency: 'USD':true }}</td>
                 </ng-container>
             </tr>

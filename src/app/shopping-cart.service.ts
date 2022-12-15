@@ -52,7 +52,7 @@ export class ShoppingCartService {
           {product :
             {category:"noitem",
             imageUrl:"",
-            price:"",
+            price:0,
             title:" "
           },quantity: 0}});
     }

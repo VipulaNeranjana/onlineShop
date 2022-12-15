@@ -4,6 +4,7 @@
     <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th class="text-left">Product</th>
                 <th class="text-center">Quantity</th>
                 <th class="text-right">Price</th>
@@ -12,6 +13,9 @@
         <tbody>
             <tr *ngFor="let cart of cart.items | keyvalue">
                 <ng-container *ngIf="$any(cart.value).quantity != 0">
+                    <td>
+                        <div [style.backgroundImage]="'url(' +$any(cart.value).product.imageUrl + ')'" class="thumbnail"></div>
+                    </td>
                     <td>{{cart.key }}</td>
                     <td>
                         <div class="row no-gutters">
@@ -35,7 +39,8 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th>{{price | currency: 'USD':true }}</th>
+                <th></th>
+                <th class="text-right">{{price | currency: 'USD':true }}</th>
             </tr>
         </tfoot>
     </table>

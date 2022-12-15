@@ -43,6 +43,21 @@ export class ShoppingCartService {
     this.updateItemQuantity(product,-1);
   }
 
+  async clearCart(){
+    let cartId = await this.getOrCreateCartId();
+    if (this.db.object('/shopping-carts/'+ cartId + '/items/')) {
+      this.db.object('/shopping-carts/'+ cartId + '/items/')
+      .set(
+        {noItems : 
+          {product :
+            {category:"noitem",
+            imageUrl:"",
+            price:"",
+            title:" "
+          },quantity: 0}});
+    }
+  }
+
   private async updateItemQuantity(product: Product, change: number){
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId, product.title);

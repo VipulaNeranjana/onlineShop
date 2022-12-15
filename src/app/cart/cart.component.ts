@@ -26,12 +26,14 @@ export class CartComponent implements OnInit, OnDestroy {
       this.cart = values;
       console.log(this.cart);
 
-      this.price =0;
-      for (let productTitle of Object.keys(values!.items)){
-    
-        const quantity = parseFloat(values!.items[productTitle as keyof typeof values].quantity);
-        const priceForOne = parseFloat(values!.items[productTitle as keyof typeof values].product.price);
-        this.price! += quantity *priceForOne;
+      if (values) {
+        this.price =0;
+        for (let productTitle of Object.keys(values!.items)){
+      
+          const quantity = parseFloat(values!.items[productTitle as keyof typeof values].quantity);
+          const priceForOne = parseFloat(values!.items[productTitle as keyof typeof values].product.price);
+          this.price! += quantity *priceForOne;
+        }
       }
     })
     // (await this.shoppingCartService.getCart()).valueChanges().pipe(map(values => 
@@ -54,6 +56,10 @@ export class CartComponent implements OnInit, OnDestroy {
 
   removeFromCart(product: any){
     this.shoppingCartService.removeFromCart(product);
+  }
+
+  clearCart(){
+    this.shoppingCartService.clearCart();
   }
 
   ngOnDestroy(){

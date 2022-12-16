@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 import { ShoppingCart } from '../models/shopping-cart';
 import { OrderService } from '../order.service';
 import { ShoppingCartService } from '../shopping-cart.service';
@@ -14,19 +15,24 @@ export class CheckOutComponent implements OnInit, OnDestroy {
 
   shipping : any = {};
   cart : ShoppingCart | undefined;
-  subscription : Subscription | undefined;
+  cartSubscription : Subscription | undefined;
+  userSubscription : Subscription | undefined;
   price: number | undefined;
   items: any;
+  userId: string | undefined;
 
-  constructor(private orderService : OrderService, private shoppingCartService : ShoppingCartService) { }
+  constructor(private authService : AuthService, private orderService : OrderService, private shoppingCartService : ShoppingCartService) { }
   
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
+    this.cartSubscription?.unsubscribe();
+    this.userSubscription?.unsubscribe();
   }
 
   async ngOnInit(){
+    this.userSubscription = this.authService.user$?.pipe().subscribe(user => this.userId = user.uid)
+    
     let cart$ = await this.shoppingCartService.getCart();
-    this.subscription = cart$.valueChanges().subscribe((cart : any) => {
+    this.cartSubscription = cart$.valueChanges().subscribe((cart : any) => {
       this.cart = cart!;
 
       if (cart) {
@@ -47,7 +53,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
       shipping : this.shipping,
       items : this.cart,
       totalPrice : this.price,
-      
+      userId : this.userId,  
     };
     
     this.orderService.storeOder(order);

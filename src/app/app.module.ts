@@ -39,6 +39,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
     ProductFormComponent,
     ProductFilterComponent,
     ProductCardComponent,
+    ShoppingCartSummaryComponent,
   ],
   imports: [
     BrowserModule,

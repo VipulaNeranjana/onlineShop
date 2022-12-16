@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Order Summery</h5>
+      <p class="card-text">You have {{ quantity }} items in your shopping cart.</p>
+        <ul *ngFor="let cart of cart.items | keyvalue" class="list-group list-group-flush">
+            <li class="list-group-item" *ngIf="$any(cart.value).quantity != 0">
+                {{$any(cart.value).quantity}} x {{$any(cart.value).product.title}}
+                <div class="float-sm-right">{{$any(cart.value).product.price * $any(cart.value).quantity | currency: 'USD' : true}}</div>
+            </li>
+        </ul>
+        <li class="list-group-item font-weight-bold">
+            Total
+            <div class="float-sm-right">{{price | currency: 'USD' : true }}</div>
+        </li>
+    </div>
+</div>

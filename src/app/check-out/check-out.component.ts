@@ -15,12 +15,14 @@ import { ShoppingCartService } from '../shopping-cart.service';
 export class CheckOutComponent implements OnInit, OnDestroy {
 
   shipping : any = {};
-  cart : ShoppingCart | undefined;
+  cart : ShoppingCart = {items: []};
   cartSubscription : Subscription | undefined;
   userSubscription : Subscription | undefined;
   price: number | undefined;
   items: any;
   userId: string | undefined;
+  order: any;
+  quantity: number | undefined;
 
   constructor(private router : Router, private authService : AuthService, private orderService : OrderService, private shoppingCartService : ShoppingCartService) { }
   
@@ -38,18 +40,20 @@ export class CheckOutComponent implements OnInit, OnDestroy {
 
       if (cart) {
         this.price =0;
+        this.quantity = 0;
         for (let productTitle of Object.keys(cart!.items)){
       
           const quantity = parseFloat(cart!.items[productTitle as keyof typeof cart].quantity);
           const priceForOne = parseFloat(cart!.items[productTitle as keyof typeof cart].product.price);
           this.price! += quantity *priceForOne;
+          this.quantity! += quantity;
         }
       }
     });
   }
 
   async save(){
-    let order = {
+    this.order = {
       datePlaced : new Date().getTime(),
       shipping : this.shipping,
       items : this.cart,
@@ -57,7 +61,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
       userId : this.userId,  
     };
     
-    let result = await this.orderService.placeOder(order);
+    let result = await this.orderService.placeOder(this.order);
     this.router.navigate(['/order-success', result.key]);
   }
 

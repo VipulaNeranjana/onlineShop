@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ShoppingCart } from '../models/shopping-cart';
@@ -21,7 +22,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   items: any;
   userId: string | undefined;
 
-  constructor(private authService : AuthService, private orderService : OrderService, private shoppingCartService : ShoppingCartService) { }
+  constructor(private router : Router, private authService : AuthService, private orderService : OrderService, private shoppingCartService : ShoppingCartService) { }
   
   ngOnDestroy() {
     this.cartSubscription?.unsubscribe();
@@ -47,7 +48,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     });
   }
 
-  save(){
+  async save(){
     let order = {
       datePlaced : new Date().getTime(),
       shipping : this.shipping,
@@ -56,7 +57,8 @@ export class CheckOutComponent implements OnInit, OnDestroy {
       userId : this.userId,  
     };
     
-    this.orderService.storeOder(order);
+    let result = await this.orderService.placeOder(order);
+    this.router.navigate(['/order-success', result.key]);
   }
 
 }

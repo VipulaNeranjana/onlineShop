@@ -1,1 +1,16 @@
-<p>admin-orders works!</p>
+<h1>List of users</h1>
+<table class="table caption-top">
+    <thead>
+      <tr>
+        <th scope="col">Customer</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let orders of orders | keyvalue">
+        <td>{{$any(orders.value).shipping.name}} </td>
+        <td>{{$any(orders.value).datePlaced | date: 'dd/MM/yyyy'}} </td>
+        <td>view</td>
+      </tr>
+  </table>

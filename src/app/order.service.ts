@@ -18,4 +18,10 @@ export class OrderService {
   getOrders(){
     return this.db.list('/orders');
   }
+
+  getOrdersByUser(userId: string){
+    console.log(userId);
+    return this.db.list('/orders', ref => 
+    ref.orderByChild('userId').equalTo(userId));
+  }
 }
